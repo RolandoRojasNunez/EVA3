@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Formulario de Contacto</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<h1>Formulario de Contacto</h1>
+	<form id="formulario">
+		<label for="nombre">Nombre:</label>
+		<input type="text" id="nombre" name="nombre" required><br>
+
+		<label for="apellido">Apellido:</label>
+		<input type="text" id="apellido" name="apellido" required><br>
+
+		<label for="rut">RUT:</label>
+		<input type="text" id="rut" name="rut" required><br>
+
+		<label for="correo">Correo electrónico:</label>
+		<input type="email" id="correo" name="correo" required><br>
+
+		<label for="telefono">Teléfono:</label>
+		<input type="tel" id="telefono" name="telefono" required><br>
+
+		<input type="button" id="btnGuardar" value="Guardar">
+		<input type="button" id="btnEditar" value="Editar">
+		<input type="button" id="btnMostrar" value="Mostrar">
+		<input type="button" id="btnBorrar" value="Borrar">
+	</form>
+
+	<script src="script.js"></script>
+</body>
+</html>
