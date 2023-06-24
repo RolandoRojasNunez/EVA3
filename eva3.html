@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Desarrollos Creativos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos para el navbar y el contenido principal */
+        nav {
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+        }
+
+        nav h1 {
+            margin: 0;
+            float: left;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .content {
+            margin-top: 60px;
+            /* Asegura que el contenido no se solape con el navbar */
+            padding: 20px;
+            text-align: center;
+            /* Centra el contenido horizontalmente */
+        }
+
+        /* Estilos para el formulario de cotización */
+        .cotizacion-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cotizacion-form label {
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .cotizacion-form input,
+        .cotizacion-form select,
+        .cotizacion-form textarea {
+            width: 100%;
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        .cotizacion-form button {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Estilos para la tabla de cotizaciones */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        table td.actions {
+            text-align: center;
+        }
+
+        table td.actions button {
+            padding: 5px 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        .modal-content button {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Estilos para el footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            max-width: 250px;
+            height: auto;
+            margin: 0 10px;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .content-container p {
+            flex-basis: 50%;
+            max-width: 500px;
+            margin: 10px;
+            text-align: justify;
+        }
+
+        /* Nuevos estilos para el color de fondo del navbar y footer */
+        .navbar-colored {
+            background-color: #ff0000;
+            /* Color de fondo personalizado para el navbar */
+        }
+
+        ul {
+            text-align: center;
+            padding: 0;
+        }
+
+        li {
+            list-style-type: none;
+            margin: 10px 0;
+        }
+
+        .cookies-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .cookies-message {
+            max-width: 400px;
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            color: black;
+            /* Color de texto negro */
+        }
+
+        .cookies-message p {
+            margin: 0;
+        }
+
+        .cookies-message button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h1>Creamos Tu Sitio</h1>
+        <ul>
+            <li><a href="#home" onclick="mostrarSeccion('home')">Home</a></li>
+            <li><a href="#quienes-somos" onclick="mostrarSeccion('quienes-somos')">Quienes somos</a></li>
+            <li><a href="#contacto" onclick="mostrarSeccion('contacto')">Contacto</a></li>
+            <li><a href="#cotizacion" onclick="mostrarSeccion('cotizacion')">Cotización</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="content">
+        <h2>Bienvenido a Desarrollos Creativos</h2>
+        <p>Empresa líder de marketing digital para pequeñas y medianas empresas.</p>
+        <div class="container">
+            <div class="image-container">
+                <img src="https://www.tusclicks.cl/wp-content/uploads/elementor/thumbs/quienes-somos-or4160qq92uqbsgv4l7h7oa9tg1zdy68g5naikcuk8.png"
+                    alt="Imagen 1">
+            </div>
+
+            <p>¡Impulsa tu presencia en línea con Desarrollos Creativos!</p>
+
+            <p>En un mundo cada vez más digital, es crucial que las pequeñas y medianas empresas tengan una presencia
+                sólida en Internet para alcanzar a su audiencia y hacer crecer su negocio. En Desarrollos Creativos,
+                entendemos la importancia de una estrategia en línea efectiva y personalizada que se adapte a tus
+                necesidades comerciales.</p>
+
+            <p>Nuestro equipo de expertos en desarrollo web está aquí para llevar tu presencia en línea al siguiente
+                nivel. Ya sea que necesites una página web impresionante, una tienda en línea funcional o una plataforma
+                personalizada para interactuar con tus clientes, podemos ayudarte a hacerlo realidad.</p>
+
+            <p>¿Qué nos diferencia? En Desarrollos Creativos, no solo nos enfocamos en crear sitios web visualmente
+                atractivos, sino que también nos esforzamos por proporcionar una experiencia de usuario excepcional.
+                Diseñamos y desarrollamos sitios web optimizados, rápidos y accesibles que cautivarán a tu audiencia y
+                los mantendrán comprometidos.</p>
+
+            <p>Además, comprendemos que cada negocio es único, por lo que trabajamos estrechamente contigo para entender
+                tus objetivos y necesidades específicas. Nuestro enfoque personalizado nos permite ofrecerte soluciones
+                web adaptadas a tu industria y a tu público objetivo.</p>
+
+            <p>No importa el tamaño de tu empresa o tu presupuesto, en Desarrollos Creativos tenemos una solución para
+                ti. Nuestros servicios abarcan desde el diseño y desarrollo de sitios web hasta la optimización para
+                motores de búsqueda (SEO), marketing en redes sociales y mucho más.</p>
+
+            <p>¡No te quedes atrás en el mundo digital! Contacta con Desarrollos Creativos hoy mismo y descubre cómo
+                podemos ayudarte a impulsar tu negocio en línea. Juntos, construiremos una presencia web exitosa que te
+                diferenciará de la competencia y te permitirá alcanzar tus metas comerciales.</p>
+
+            <p>¡Convierte tu visión en realidad con Desarrollos Creativos!</p>
+        </div>
+    </section>
+
+    <section id="quienes-somos" class="content">
+        <h1>Quienes Somos</h1>
+        <p>Empresa líder de marketing digital para pequeñas y medianas empresas. Somos especialistas en generar un
+            aumento de las ventas a través de la creación de sitios web profesionales y campañas en Google Ads, SEO
+            y
+            redes sociales. Ganadores del premio “Highest customer satisfaction” entregado por Google.</p>
+        <h2>Qué nos hace diferentes</h2>
+        <p>Desde nuestro inicio nuestro foco siempre fue hacer campañas de marketing digital que generaran
+            resultados
+            visibles para nuestros clientes.</p>
+        <p>Por resultados visibles nos referimos a generar un aumento en las cotizaciones y ventas. Así de simple.
+            Todos
+            nuestros servicios tienen esa orientación.</p>
+        <br>
+        <h2>Productos de Desarrollo Web</h2>
+
+        <ul>
+            <li>Diseño de sitios web personalizados</li>
+            <li>Desarrollo de aplicaciones web</li>
+            <li>Optimización de motores de búsqueda (SEO)</li>
+            <li>Desarrollo de tiendas en línea</li>
+            <li>Integración de sistemas de gestión de contenido (CMS)</li>
+            <li>Desarrollo de sitios web responsivos</li>
+            <li>Implementación de analítica web</li>
+            <li>Integración de pasarelas de pago</li>
+            <li>Optimización de rendimiento de sitios web</li>
+            <li>Mantenimiento y soporte técnico</li>
+        </ul>
+
+    </section>
+
+
+    <section id="contacto" class="content">
+        <h2>Contacto</h2>
+        <p>Ponte en contacto con nosotros</p>
+
+        <form id="formulario-contacto" onsubmit="enviarFormulario(event)">
+            <label for="nombreContacto">Nombre:</label>
+            <input type="text" id="nombreContacto" required /><br /><br />
+
+            <label for="apellidoContacto">Apellido:</label>
+            <input type="text" id="apellidoContacto" required /><br /><br />
+
+            <label for="telefonoContacto">Teléfono:</label>
+            <input type="number" id="telefonoContacto" required /><br /><br />
+
+            <label for="correoContacto">Correo:</label>
+            <input type="email" id="correoContacto" required /><br /><br />
+
+            <label for="mensajeContacto">Mensaje:</label><br />
+            <textarea id="mensajeContacto" rows="4" cols="50" required></textarea><br /><br />
+
+            <input type="submit" value="Enviar" />
+        </form>
+    </section>
+
+    <section id="cotizacion" class="content">
+        <h2>Cotización</h2>
+        <form id="cotizacion-form" class="cotizacion-form" onsubmit="guardarCotizacion(event)">
+            <label for="nombre-apellido">Nombre y Apellido</label>
+            <input type="text" id="nombre-apellido" required>
+
+            <label for="correo">Correo Electrónico</label>
+            <input type="email" id="correo" required>
+
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" required>
+
+            <label for="preferencia">Preferencia</label>
+            <label><input type="checkbox" name="preferencia" value="Pagina"> Página</label>
+            <label><input type="checkbox" name="preferencia" value="Aplicacion"> Aplicación</label>
+
+            <label for="opciones">Opciones</label>
+            <select id="opciones" required>
+                <option value="">Seleccione una opción</option>
+                <option value="Pagina Web">Página Web</option>
+                <option value="Aplicacion IOS">Aplicación IOS</option>
+                <option value="Aplicacion Android">Aplicación Android</option>
+                <option value="Aplicacion Cloud">Aplicación Cloud</option>
+            </select>
+
+            <label for="fecha-hora">Fecha y Hora</label>
+            <input type="datetime-local" id="fecha-hora" required>
+
+            <label for="comentarios">Comentarios</label>
+            <textarea id="comentarios" rows="4"></textarea>
+
+            <button type="submit">Guardar</button>
+        </form>
+
+        <table id="cotizaciones-table" class="cotizaciones-table">
+            <thead>
+                <tr>
+                    <th>Nombre y Apellido</th>
+                    <th>Fecha de Cotización</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="cotizaciones-body"></tbody>
+        </table>
+        <button onclick="exportarCotizaciones()">Exportar JSON</button>
+        <div id="editar-modal" class="modal">
+            <div class="modal-content">
+                <h2>Editar Cotización</h2>
+                <form id="editar-form" onsubmit="guardarEdicion(event)">
+                    <input type="hidden" id="editar-id">
+                    <label for="editar-nombre-apellido">Nombre y Apellido</label>
+                    <input type="text" id="editar-nombre-apellido" required>
+
+                    <label for="editar-correo">Correo Electrónico</label>
+                    <input type="email" id="editar-correo" required>
+
+                    <label for="editar-telefono">Teléfono</label>
+                    <input type="text" id="editar-telefono" required>
+
+                    <label for="editar-preferencia">Preferencia</label>
+                    <label><input type="checkbox" name="editar-preferencia" value="Pagina"> Página</label>
+                    <label><input type="checkbox" name="editar-preferencia" value="Aplicacion"> Aplicación</label>
+
+                    <label for="editar-opciones">Opciones</label>
+                    <select id="editar-opciones" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="Pagina Web">Página Web</option>
+                        <option value="Aplicacion IOS">Aplicación IOS</option>
+                        <option value="Aplicacion Android">Aplicación Android</option>
+                        <option value="Aplicacion Cloud">Aplicación Cloud</option>
+                    </select>
+
+                    <label for="editar-fecha-hora">Fecha y Hora</label>
+                    <input type="datetime-local" id="editar-fecha-hora" required>
+
+                    <label for="editar-comentarios">Comentarios</label>
+                    <textarea id="editar-comentarios" rows="4"></textarea>
+
+                    <button type="submit">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer-colored">
+        Teléfono: <span>+56942199915</span>
+        <a href="https://wa.me/whatsapplink" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/facebookpage" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/instagramprofile" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/linkedinprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <div class="container">
+            <!-- Botón para cambiar el tamaño de los párrafos -->
+            <button onclick="cambiarTamanoParrafos()">Cambiar tamaño de párrafos</button>
+
+            <!-- Botón para cambiar el color de fondo -->
+            <button onclick="cambiarColorFondo()">Cambiar color de fondo</button>
+
+            <!-- Botón para cambiar el color de fondo del navbar y footer -->
+            <button onclick="cambiarColorFondoNavbarFooter()">Cambiar color de fondo del navbar y footer</button>
+
+            <!-- Botón para cambiar el tamaño de los títulos -->
+            <button onclick="cambiarTamanoTitulos()">Cambiar tamaño de títulos</button>
+
+            <!-- Botón para establecer color blanco -->
+            <button onclick="cambiarColorBlanco()">Color blanco</button>
+
+            <!-- Botón para restablecer los estilos originales -->
+            <button onclick="restablecerEstilos()">Restablecer estilos originales</button>
+        </div>
+        <div class="cookies-overlay">
+            <div class="cookies-message">
+                <p>Utilizamos cookies para mejorar tu experiencia en nuestro sitio web.</p>
+                <p>Al continuar navegando, aceptas nuestro uso de cookies.</p>
+                <button onclick="acceptCookies()">Aceptar</button>
+            </div>
+        </div>
+
+    </footer>
+
+    <script>
+        // Variables para almacenar los datos de cotizaciones
+        let cotizaciones = [];
+
+        // Función para mostrar la sección correspondiente
+        function mostrarSeccion(seccion) {
+            const sections = document.querySelectorAll('.content');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(seccion).style.display = 'block';
+        }
+
+        // Llamada a la función para mostrar la sección "Home" al cargar la página
+        window.addEventListener('load', function () {
+            mostrarSeccion('home');
+        });
+
+        // Función para guardar una cotización
+        function guardarCotizacion(event) {
+            event.preventDefault();
+
+            // Obtener los valores del formulario
+            const nombreApellido = document.getElementById('nombre-apellido').value;
+            const correo = document.getElementById('correo').value;
+            const telefono = document.getElementById('telefono').value;
+            const preferenciaCheckbox = document.querySelectorAll('input[name="preferencia"]:checked');
+            const preferencia = preferenciaCheckbox.length > 0 ? preferenciaCheckbox[0].value : '';
+            const opciones = document.getElementById('opciones').value;
+            const fechaHora = document.getElementById('fecha-hora').value;
+            const comentarios = document.getElementById('comentarios').value;
+
+            // Validar campos requeridos
+            if (!nombreApellido || !correo || !telefono || !opciones || !fechaHora || !comentarios) {
+                alert('Por favor, completa todos los campos requeridos');
+                return;
+            }
+
+            // Crear objeto de cotización
+            const cotizacion = {
+                id: Date.now(),
+                nombreApellido,
+                correo,
+                telefono,
+                preferencia,
+                opciones,
+                fechaHora,
+                comentarios,
+                fechaCreacion: new Date().toISOString()
+            };
+
+            // Guardar la cotización en el arreglo y vaciar el formulario
+            cotizaciones.push(cotizacion);
+            document.getElementById('cotizacion-form').reset();
+
+            // Actualizar la tabla de cotizaciones
+            mostrarCotizaciones();
+
+            // Mostrar mensaje de éxito
+            alert('La cotización se ha guardado exitosamente');
+        }
+
+        // Función para mostrar las cotizaciones en la tabla
+        function mostrarCotizaciones() {
+            const cotizacionesTable = document.getElementById('cotizaciones-body');
+            cotizacionesTable.innerHTML = '';
+
+            cotizaciones.forEach(cotizacion => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+          <td>${cotizacion.nombreApellido}</td>
+          <td>${cotizacion.fechaCreacion}</td>
+          <td class="actions">
+            <button onclick="editarCotizacion(${cotizacion.id})">Editar</button>
+            <button onclick="borrarCotizacion(${cotizacion.id})">Borrar</button>
+          </td>
+        `;
+                cotizacionesTable.appendChild(row);
+            });
+        }
+
+        // Función para editar una cotización
+        function editarCotizacion(id) {
+            const cotizacion = cotizaciones.find(cotizacion => cotizacion.id === id);
+
+            if (cotizacion) {
+                document.getElementById('editar-id').value = cotizacion.id;
+                document.getElementById('editar-nombre-apellido').value = cotizacion.nombreApellido;
+                document.getElementById('editar-correo').value = cotizacion.correo;
+                document.getElementById('editar-telefono').value = cotizacion.telefono;
+
+                const preferenciaCheckboxes = document.querySelectorAll('input[name="editar-preferencia"]');
+                preferenciaCheckboxes.forEach(checkbox => checkbox.checked = false);
+                if (cotizacion.preferencia === 'Pagina') {
+                    preferenciaCheckboxes[0].checked = true;
+                } else if (cotizacion.preferencia === 'Aplicacion') {
+                    preferenciaCheckboxes[1].checked = true;
+                }
+
+                document.getElementById('editar-opciones').value = cotizacion.opciones;
+                document.getElementById('editar-fecha-hora').value = cotizacion.fechaHora;
+                document.getElementById('editar-comentarios').value = cotizacion.comentarios;
+
+                // Abrir el modal de edición
+                document.getElementById('editar-modal').style.display = 'block';
+            }
+        }
+
+        // Función para guardar los cambios en una cotización
+        function guardarEdicion(event) {
+            event.preventDefault();
+
+            // Obtener los valores del formulario de edición
+            const id = document.getElementById('editar-id').value;
+            const nombreApellido = document.getElementById('editar-nombre-apellido').value;
+            const correo = document.getElementById('editar-correo').value;
+            const telefono = document.getElementById('editar-telefono').value;
+            const preferenciaCheckbox = document.querySelectorAll('input[name="editar-preferencia"]:checked');
+            const preferencia = preferenciaCheckbox.length > 0 ? preferenciaCheckbox[0].value : '';
+            const opciones = document.getElementById('editar-opciones').value;
+            const fechaHora = document.getElementById('editar-fecha-hora').value;
+            const comentarios = document.getElementById('editar-comentarios').value;
+
+            // Validar campos requeridos
+            if (!nombreApellido || !correo || !telefono || !opciones || !fechaHora) {
+                alert('Por favor, completa todos los campos requeridos');
+                return;
+            }
+
+            // Buscar la cotización en el arreglo y actualizar los datos
+            const cotizacion = cotizaciones.find(cotizacion => cotizacion.id === parseInt(id));
+            if (cotizacion) {
+                cotizacion.nombreApellido = nombreApellido;
+                cotizacion.correo = correo;
+                cotizacion.telefono = telefono;
+                cotizacion.preferencia = preferencia;
+                cotizacion.opciones = opciones;
+                cotizacion.fechaHora = fechaHora;
+                cotizacion.comentarios = comentarios;
+                cotizacion.fechaCreacion = new Date().toISOString();
+
+                // Cerrar el modal de edición
+                document.getElementById('editar-modal').style.display = 'none';
+
+                // Actualizar la tabla de cotizaciones
+                mostrarCotizaciones();
+
+                // Mostrar mensaje de éxito
+                alert('Los cambios se han guardado exitosamente');
+            }
+        }
+
+        // Función para borrar una cotización
+        function borrarCotizacion(id) {
+            const confirmar = confirm('¿Estás seguro de que deseas borrar esta cotización?');
+            if (confirmar) {
+                cotizaciones = cotizaciones.filter(cotizacion => cotizacion.id !== id);
+                mostrarCotizaciones();
+                alert('La cotización ha sido borrada exitosamente');
+            }
+        }
+
+        // Función para exportar las cotizaciones a un archivo JSON
+        function exportarCotizaciones() {
+            const dataStr = JSON.stringify(cotizaciones, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+            const exportFileDefaultName = 'cotizaciones.json';
+
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+
+            // Vaciar la lista de cotizaciones después de exportar
+            cotizaciones = [];
+            mostrarCotizaciones();
+            alert('Las cotizaciones se han exportado exitosamente');
+        }
+
+        // Mostrar la sección "Cotización" al cargar la página
+        mostrarSeccion('cotizacion');
+
+        function enviarFormulario(event) {
+            event.preventDefault();
+
+            var nombreContacto = document.getElementById("nombreContacto").value;
+            var apellidoContacto = document.getElementById("apellidoContacto").value;
+            var telefonoContacto = document.getElementById("telefonoContacto").value;
+            var correoContacto = document.getElementById("correoContacto").value;
+            var mensajeContacto = document.getElementById("mensajeContacto").value;
+
+            var contacto = {
+                nombre: nombreContacto,
+                apellido: apellidoContacto,
+                telefono: telefonoContacto,
+                correo: correoContacto,
+                mensaje: mensajeContacto
+            };
+
+            // Aquí puedes hacer lo que necesites con la variable "contacto"
+            console.log(contacto);
+
+            // Restablecer el formulario
+            document.getElementById("formulario-contacto").reset();
+
+            // Mostrar la alerta de éxito
+            alert("¡Contacto enviado con éxito!");
+        }
+
+
+        // Función para cambiar el tamaño de los párrafos
+        function cambiarTamanoParrafos() {
+            var parrafos = document.getElementsByTagName('p');
+            for (var i = 0; i < parrafos.length; i++) {
+                parrafos[i].style.fontSize = '20px'; // Tamaño de fuente personalizado
+            }
+        }
+
+        // Función para cambiar el color de fondo
+        function cambiarColorFondo() {
+            var content = document.getElementsByClassName('content');
+            for (var i = 0; i < content.length; i++) {
+                content[i].style.backgroundColor = '#ffff00'; // Color de fondo personalizado
+            }
+        }
+
+        // Función para cambiar el color de fondo del navbar y footer
+        function cambiarColorFondoNavbarFooter() {
+            var navbar = document.getElementsByTagName('nav')[0];
+            var footer = document.getElementsByTagName('footer')[0];
+            navbar.classList.add('navbar-colored');
+            footer.classList.add('footer-colored');
+        }
+
+        // Función para cambiar el tamaño de los títulos
+        function cambiarTamanoTitulos() {
+            var titulos = document.querySelectorAll('h1, h2, h3');
+            for (var i = 0; i < titulos.length; i++) {
+                titulos[i].style.fontSize = '36px'; // Tamaño de fuente personalizado
+            }
+        }
+
+        // Función para establecer color blanco
+        function cambiarColorBlanco() {
+            var elementos = document.querySelectorAll('body, h1, h2, h3, p, a');
+            for (var i = 0; i < elementos.length; i++) {
+                elementos[i].style.color = '#ffffff'; // Color blanco
+            }
+        }
+
+        // Función para restablecer los estilos originales
+        function restablecerEstilos() {
+            var parrafos = document.getElementsByTagName('p');
+            for (var i = 0; i < parrafos.length; i++) {
+                parrafos[i].style.fontSize = ''; // Eliminar el tamaño de fuente personalizado
+            }
+
+            var content = document.getElementsByClassName('content');
+            for (var i = 0; i < content.length; i++) {
+                content[i].style.backgroundColor = ''; // Eliminar el color de fondo personalizado
+            }
+
+            var navbar = document.getElementsByTagName('nav')[0];
+            var footer = document.getElementsByTagName('footer')[0];
+            navbar.classList.remove('navbar-colored'); // Eliminar la clase de color de fondo del navbar
+            footer.classList.remove('footer-colored'); // Eliminar la clase de color de fondo del footer
+
+            var titulos = document.querySelectorAll('h2, h3');
+            for (var i = 0; i < titulos.length; i++) {
+                titulos[i].style.fontSize = ''; // Eliminar el tamaño de fuente personalizado
+            }
+
+            var elementos = document.querySelectorAll('body, h1, h2, h3, p, a');
+            for (var i = 0; i < elementos.length; i++) {
+                elementos[i].style.color = ''; // Eliminar el color de fuente personalizado
+            }
+        }
+
+        function acceptCookies() {
+            // Code to handle the acceptance of cookies
+            // You can store the user's preference or perform any other actions here
+            // For example, you can hide the cookies overlay by removing it from the DOM
+            var cookiesOverlay = document.querySelector('.cookies-overlay');
+            cookiesOverlay.parentNode.removeChild(cookiesOverlay);
+        }
+    </script>
+</body>
+
+</html>
