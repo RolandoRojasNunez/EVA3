@@ -1,3 +1,9 @@
+Rolando Rojas Nuñez RUT 172776639-9
+Ingenieria en Informatica
+
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -40,7 +46,7 @@
         }
 
         .content {
-            margin-top: 60px;
+            margin-top: 75px;
             /* Asegura que el contenido no se solape con el navbar */
             padding: 20px;
             text-align: center;
@@ -156,9 +162,8 @@
             color: #fff;
             text-align: center;
             padding: 10px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
+            position: relative;
+            /* Cambio de fixed a relative */
             width: 100%;
         }
 
@@ -204,6 +209,11 @@
         .navbar-colored {
             background-color: #ff0000;
             /* Color de fondo personalizado para el navbar */
+        }
+
+        .footer-colored {
+            background-color: #ff0000;
+            /* Color de fondo personalizado para el footer */
         }
 
         ul {
@@ -447,7 +457,7 @@
     </section>
 
 
-    <footer class="footer-colored">
+    <footer class="footer">
         Teléfono: <span>+56942199915</span>
         <a href="https://wa.me/whatsapplink" target="_blank"><i class="fab fa-whatsapp"></i></a>
         <a href="https://www.facebook.com/facebookpage" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -460,7 +470,7 @@
             <!-- Botón para cambiar el color de fondo -->
             <button onclick="cambiarColorFondo()">Cambiar color de fondo</button>
 
-            <!-- Botón para cambiar el color de fondo del navbar y footer -->
+            <!-- Botón para cambiar el color de fondo del navbar-->
             <button onclick="cambiarColorFondoNavbarFooter()">Cambiar color de fondo del navbar y footer</button>
 
             <!-- Botón para cambiar el tamaño de los títulos -->
@@ -761,9 +771,9 @@
         }
 
         function acceptCookies() {
-            // Code to handle the acceptance of cookies
-            // You can store the user's preference or perform any other actions here
-            // For example, you can hide the cookies overlay by removing it from the DOM
+            // Código para manejar la aceptación de cookies
+            // Se puede almacenar la preferencia del usuario o realizar cualquier otra acción aquí
+            // Por ejemplo, ocultar la superposición de cookies eliminándola del DOM
             var cookiesOverlay = document.querySelector('.cookies-overlay');
             cookiesOverlay.parentNode.removeChild(cookiesOverlay);
         }
